@@ -6,7 +6,7 @@ export async function Navbar() {
   const user = await getCurrentUser();
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/95 border-b border-warm-200 shadow-sm">
+    <nav className="relative bg-white/95 border-b border-warm-200 shadow-sm">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-2 font-bold text-xl text-warm-800 hover:text-warm-600 transition-colors">
