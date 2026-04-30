@@ -20,6 +20,12 @@ html {
 body {
   background: linear-gradient(to bottom, #fefcf8, #faf7f2, #f5efe6);
   min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* 移动端触控修复 */
+a, button, [role="button"], input[type="submit"] {
+  touch-action: manipulation;
 }
 
 /* 自定义滚动条 */
