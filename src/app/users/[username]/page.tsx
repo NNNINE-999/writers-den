@@ -25,6 +25,7 @@ export default async function UserPage({ params }: Props) {
       id: articles.id,
       title: articles.title,
       content: articles.content,
+      anonymous: articles.anonymous,
       createdAt: articles.createdAt,
       tagNames: sql<string>`group_concat(distinct ${tags.name})`.as("tag_names"),
     })
@@ -37,6 +38,7 @@ export default async function UserPage({ params }: Props) {
 
   const articleList = rows.map((row) => ({
     ...row,
+    authorName: row.anonymous === "1" ? "匿名" : user[0].username,
     tags: row.tagNames ? row.tagNames.split(",") : [],
   }));
 

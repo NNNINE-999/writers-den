@@ -9,6 +9,8 @@ interface Props {
   initialTitle?: string;
   initialContent?: string;
   initialTags?: string;
+  initialCopyable?: boolean;
+  initialAnonymous?: boolean;
   articleId?: string;
 }
 
@@ -16,6 +18,8 @@ export function ArticleForm({
   initialTitle = "",
   initialContent = "",
   initialTags = "",
+  initialCopyable = false,
+  initialAnonymous = false,
   articleId,
 }: Props) {
   const router = useRouter();
@@ -84,10 +88,18 @@ export function ArticleForm({
 
       <label className="flex items-center gap-3 cursor-pointer">
         <input
-          type="checkbox" name="copyable" value="1"
+          type="checkbox" name="copyable" value="1" defaultChecked={initialCopyable}
           className="w-4 h-4 rounded border-warm-300 text-warm-600 focus:ring-warm-600"
         />
         <span className="text-sm text-stone-600">允许他人复制此作品</span>
+      </label>
+
+      <label className="flex items-center gap-3 cursor-pointer">
+        <input
+          type="checkbox" name="anonymous" value="1" defaultChecked={initialAnonymous}
+          className="w-4 h-4 rounded border-warm-300 text-warm-600 focus:ring-warm-600"
+        />
+        <span className="text-sm text-stone-600">匿名发布</span>
       </label>
 
       <div className="flex gap-3 pt-2">

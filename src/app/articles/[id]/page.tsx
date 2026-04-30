@@ -20,6 +20,7 @@ async function getArticle(id: string) {
       title: articles.title,
       content: articles.content,
       copyable: articles.copyable,
+      anonymous: articles.anonymous,
       authorId: articles.authorId,
       authorName: users.username,
       createdAt: articles.createdAt,
@@ -68,7 +69,7 @@ export default async function ArticlePage({ params }: Props) {
             <span className="w-6 h-6 rounded-full bg-warm-100 flex items-center justify-center text-xs font-bold text-warm-600">
               {(article.authorName ?? "?")[0].toUpperCase()}
             </span>
-            {article.authorName}
+            {article.anonymous === "1" ? "匿名" : article.authorName}
           </Link>
           <span className="text-stone-300">·</span>
           <time>
@@ -102,7 +103,7 @@ export default async function ArticlePage({ params }: Props) {
             {articleTags.map((tag) => (
               <Link
                 key={tag.id}
-                href={`/tags/${tag.slug}`}
+                href={`/tags/${encodeURIComponent(tag.slug)}`}
                 className="text-xs px-3 py-1 rounded-full bg-warm-50 text-warm-700 hover:bg-warm-600 hover:text-white transition-all"
               >
                 {tag.name}

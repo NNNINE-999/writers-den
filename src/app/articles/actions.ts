@@ -40,6 +40,7 @@ export async function createArticle(_prev: ArticleState, formData: FormData): Pr
     content: formData.get("content"),
     tags: (formData.get("tags") as string)?.split(",").filter(Boolean) ?? [],
     copyable: formData.get("copyable") === "1" ? "1" : "0",
+    anonymous: formData.get("anonymous") === "1" ? "1" : "0",
   };
 
   const result = articleSchema.safeParse(raw);
@@ -52,7 +53,7 @@ export async function createArticle(_prev: ArticleState, formData: FormData): Pr
   const now = new Date().toISOString();
   const tagIds = await resolveTags(raw.tags);
 
-  await db.insert(articles).values({ id, title, content, copyable, authorId: user.id, createdAt: now, updatedAt: now });
+  await db.insert(articles).values({ id, title, content, copyable, anonymous: raw.anonymous, authorId: user.id, createdAt: now, updatedAt: now });
   if (tagIds.length > 0) {
     await db.insert(articleTags).values(tagIds.map((tagId) => ({ articleId: id, tagId })));
   }
@@ -74,6 +75,7 @@ export async function updateArticle(id: string, _prev: ArticleState, formData: F
     content: formData.get("content"),
     tags: (formData.get("tags") as string)?.split(",").filter(Boolean) ?? [],
     copyable: formData.get("copyable") === "1" ? "1" : "0",
+    anonymous: formData.get("anonymous") === "1" ? "1" : "0",
   };
 
   const result = articleSchema.safeParse(raw);
@@ -84,7 +86,7 @@ export async function updateArticle(id: string, _prev: ArticleState, formData: F
   const { title, content, copyable } = result.data;
   const tagIds = await resolveTags(raw.tags);
 
-  await db.update(articles).set({ title, content, copyable, updatedAt: new Date().toISOString() }).where(eq(articles.id, id));
+  await db.update(articles).set({ title, content, copyable, anonymous: raw.anonymous, updatedAt: new Date().toISOString() }).where(eq(articles.id, id));
   await db.delete(articleTags).where(eq(articleTags.articleId, id));
   if (tagIds.length > 0) {
     await db.insert(articleTags).values(tagIds.map((tagId) => ({ articleId: id, tagId })));

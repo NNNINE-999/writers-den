@@ -19,6 +19,8 @@ export default async function EditArticlePage({ params }: Props) {
       id: articles.id,
       title: articles.title,
       content: articles.content,
+      copyable: articles.copyable,
+      anonymous: articles.anonymous,
       authorId: articles.authorId,
     })
     .from(articles)
@@ -40,6 +42,8 @@ export default async function EditArticlePage({ params }: Props) {
         initialTitle={article[0].title}
         initialContent={article[0].content}
         initialTags={articleTagNames.map((t) => t.name).join(",")}
+        initialCopyable={article[0].copyable === "1"}
+        initialAnonymous={article[0].anonymous === "1"}
         articleId={id}
       />
     </div>

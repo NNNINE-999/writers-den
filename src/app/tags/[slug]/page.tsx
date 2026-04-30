@@ -14,7 +14,8 @@ export default async function TagPage({ params }: Props) {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
-  const tag = await db.select({ id: tags.id, name: tags.name }).from(tags).where(eq(tags.slug, slug));
+  const decodedSlug = decodeURIComponent(slug);
+  const tag = await db.select({ id: tags.id, name: tags.name }).from(tags).where(eq(tags.slug, decodedSlug));
   if (tag.length === 0) notFound();
 
   const rows = await db
@@ -22,6 +23,7 @@ export default async function TagPage({ params }: Props) {
       id: articles.id,
       title: articles.title,
       content: articles.content,
+      anonymous: articles.anonymous,
       authorName: users.username,
       createdAt: articles.createdAt,
       tagNames: sql<string>`group_concat(distinct ${tags.name})`.as("tag_names"),
@@ -36,6 +38,7 @@ export default async function TagPage({ params }: Props) {
 
   const articleList = rows.map((row) => ({
     ...row,
+    authorName: row.anonymous === "1" ? "匿名" : row.authorName,
     tags: row.tagNames ? row.tagNames.split(",") : [],
   }));
 

@@ -12,6 +12,7 @@ async function getArticles() {
       id: articles.id,
       title: articles.title,
       content: articles.content,
+      anonymous: articles.anonymous,
       authorId: articles.authorId,
       authorName: users.username,
       createdAt: articles.createdAt,
@@ -26,6 +27,7 @@ async function getArticles() {
 
   return rows.map((row) => ({
     ...row,
+    authorName: row.anonymous === "1" ? "匿名" : row.authorName,
     tags: row.tagNames ? row.tagNames.split(",") : [],
   }));
 }
@@ -155,7 +157,7 @@ export default async function HomePage() {
               {tagCloud.map((tag) => (
                 <Link
                   key={tag.id}
-                  href={`/tags/${tag.slug}`}
+                  href={`/tags/${encodeURIComponent(tag.slug)}`}
                   className="group flex items-center gap-1 text-sm px-3 py-1.5 rounded-full bg-warm-50 text-stone-600 hover:bg-warm-600 hover:text-white transition-all duration-200"
                 >
                   {tag.name}
