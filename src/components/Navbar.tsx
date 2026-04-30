@@ -9,12 +9,13 @@ export async function Navbar() {
     <nav className="relative bg-white/95 border-b border-warm-200 shadow-sm">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-2 font-bold text-xl text-warm-800 hover:text-warm-600 transition-colors">
+          <Link href="/" prefetch={false} className="flex items-center gap-2 font-bold text-xl text-warm-800 hover:text-warm-600 transition-colors">
             <span className="text-2xl" role="img" aria-label="pen">&#9998;</span>
             Writers&apos; Den
           </Link>
           <Link
             href="/"
+            prefetch={false}
             className="hidden sm:block text-sm text-stone-500 hover:text-warm-700 transition-colors font-medium"
           >
             发现
@@ -26,6 +27,7 @@ export async function Navbar() {
             <>
               <Link
                 href="/articles/new"
+                prefetch={false}
                 className="flex items-center gap-1.5 text-sm bg-warm-600 text-white px-4 py-2 rounded-full hover:bg-warm-700 transition-all shadow-sm hover:shadow-md"
               >
                 <span className="text-lg leading-none">+</span>
@@ -33,6 +35,7 @@ export async function Navbar() {
               </Link>
               <Link
                 href={`/users/${user.username}`}
+                prefetch={false}
                 className="flex items-center gap-2 text-sm text-stone-600 hover:text-warm-700 transition-colors"
               >
                 <span className="w-7 h-7 rounded-full bg-warm-100 flex items-center justify-center text-xs font-bold text-warm-700">
@@ -46,12 +49,14 @@ export async function Navbar() {
             <>
               <Link
                 href="/login"
+                prefetch={false}
                 className="text-sm text-stone-500 hover:text-warm-700 transition-colors font-medium"
               >
                 登录
               </Link>
               <Link
                 href="/register"
+                prefetch={false}
                 className="text-sm bg-warm-600 text-white px-4 py-2 rounded-full hover:bg-warm-700 transition-all shadow-sm hover:shadow-md"
               >
                 注册
