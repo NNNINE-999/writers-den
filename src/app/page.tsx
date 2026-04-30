@@ -85,23 +85,23 @@ export default async function HomePage() {
               return (
                 <article
                   key={article.id}
-                  className="group relative bg-white/80 backdrop-blur rounded-2xl border border-warm-200 hover:border-warm-600 hover:shadow-lg transition-all duration-300 overflow-hidden"
+                  className="bg-white/80 backdrop-blur rounded-2xl border border-warm-200 hover:border-warm-600 hover:shadow-lg transition-all duration-300"
                   style={{ animationDelay: `${i * 50}ms` }}
                 >
-                  <div className="p-5 sm:p-6">
+                  <Link href={`/articles/${article.id}`} className="block p-5 sm:p-6">
                     <h2 className="text-lg sm:text-xl font-bold text-stone-800 group-hover:text-warm-700 transition-colors mb-2 line-clamp-1">
-                      <Link href={`/articles/${article.id}`} className="after:absolute after:inset-0">
-                        {article.title}
-                      </Link>
+                      {article.title}
                     </h2>
                     <p className="text-stone-500 text-sm leading-relaxed mb-4 line-clamp-2">
                       {summary || article.content.slice(0, 180)}
                     </p>
-                    <div className="relative z-[1] flex items-center gap-3 text-xs text-stone-400 flex-wrap">
-                      <AuthorLink
-                        username={article.authorName ?? "?"}
-                        className="flex items-center gap-1.5 text-warm-700 hover:text-warm-800 font-medium transition-colors"
-                      />
+                    <div className="flex items-center gap-3 text-xs text-stone-400 flex-wrap">
+                      <span className="flex items-center gap-1.5 text-warm-700 font-medium">
+                        <span className="w-5 h-5 rounded-full bg-warm-100 flex items-center justify-center text-[10px] font-bold text-warm-600">
+                          {(article.authorName ?? "?")[0].toUpperCase()}
+                        </span>
+                        {article.authorName}
+                      </span>
                       <span className="text-stone-300">·</span>
                       <time>
                         {(() => {
@@ -133,7 +133,7 @@ export default async function HomePage() {
                         </>
                       )}
                     </div>
-                  </div>
+                  </Link>
                 </article>
               );
             })}
