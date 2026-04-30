@@ -81,8 +81,9 @@ export async function updateArticle(id: string, _prev: ArticleState, formData: F
   const user = await getCurrentUser();
   if (!user) return { errors: { _form: ["请先登录"] } };
 
-  const row = await db.select({ authorId: articles.authorId }).from(articles).where(eq(articles.id, id));
-  if (row.length === 0 || row[0].authorId !== user.id) {
+  const row = await db.select({ authorId: articles.authorId, abandoned: articles.abandoned }).from(articles).where(eq(articles.id, id));
+  if (row.length === 0) return { errors: { _form: ["作品不存在"] } };
+  if (row[0].authorId !== user.id && !(user.role === "admin" && row[0].abandoned === "1")) {
     return { errors: { _form: ["无权编辑此作品"] } };
   }
 
@@ -117,15 +118,16 @@ export async function abandonArticle(id: string) {
   const row = await db.select({ authorId: articles.authorId }).from(articles).where(eq(articles.id, id));
   if (row.length === 0 || row[0].authorId !== user.id) return { success: false };
   await ensureChenwenyiExists();
-  await db.update(articles).set({ authorId: CHENWENYI_ID, abandoned: "1" }).where(eq(articles.id, id));
+  await db.update(articles).set({ authorId: CHENWENYI_ID, abandoned: "1", anonymous: "0" }).where(eq(articles.id, id));
   return { success: true };
 }
 
 export async function deleteArticle(id: string) {
   const user = await getCurrentUser();
   if (!user) return { success: false };
-  const row = await db.select({ authorId: articles.authorId }).from(articles).where(eq(articles.id, id));
-  if (row.length === 0 || row[0].authorId !== user.id) return { success: false };
+  const row = await db.select({ authorId: articles.authorId, abandoned: articles.abandoned }).from(articles).where(eq(articles.id, id));
+  if (row.length === 0) return { success: false };
+  if (row[0].authorId !== user.id && !(user.role === "admin" && row[0].abandoned === "1")) return { success: false };
   await db.delete(articles).where(eq(articles.id, id));
   return { success: true };
 }

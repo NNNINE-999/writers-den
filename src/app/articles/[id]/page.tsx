@@ -108,6 +108,17 @@ export default async function ArticlePage({ params }: Props) {
               <DeleteArticleButton articleId={id} />
             </div>
           )}
+          {user?.role === "admin" && article.abandoned === "1" && (
+            <div className="flex gap-2 ml-auto">
+              <Link
+                href={`/articles/${id}/edit`}
+                className="px-3 py-1 text-xs rounded-full border border-warm-200 text-stone-500 hover:bg-warm-50 hover:text-warm-700 transition-all"
+              >
+                编辑
+              </Link>
+              <DeleteArticleButton articleId={id} />
+            </div>
+          )}
           {article.abandoned === "1" && (
             <span className="ml-auto text-xs px-2 py-1 rounded-full bg-amber-50 text-amber-600 border border-amber-200">
               已遗弃
