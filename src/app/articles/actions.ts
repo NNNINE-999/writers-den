@@ -2,10 +2,26 @@
 
 import { v4 as uuid } from "uuid";
 import { db } from "@/../db";
-import { articles, tags, articleTags } from "@/../db/schema";
+import { articles, tags, articleTags, users } from "@/../db/schema";
 import { eq } from "drizzle-orm";
-import { getCurrentUser } from "@/lib/auth";
+import { getCurrentUser, hashPassword } from "@/lib/auth";
 import { articleSchema } from "@/lib/validations";
+
+const CHENWENYI_ID = "550e8400-e29b-41d4-a716-446655440001";
+
+async function ensureChenwenyiExists() {
+  const row = await db.select({ id: users.id }).from(users).where(eq(users.id, CHENWENYI_ID));
+  if (row.length === 0) {
+    await db.insert(users).values({
+      id: CHENWENYI_ID,
+      email: "chenwenyi@writers-den.internal",
+      username: "陈文逸",
+      passwordHash: await hashPassword("chenwenyi-secret-" + Date.now()),
+      role: "user",
+      createdAt: new Date().toISOString(),
+    });
+  }
+}
 
 interface ArticleState {
   errors: Record<string, string[]>;
@@ -93,6 +109,16 @@ export async function updateArticle(id: string, _prev: ArticleState, formData: F
   }
 
   return { errors: {}, success: true };
+}
+
+export async function abandonArticle(id: string) {
+  const user = await getCurrentUser();
+  if (!user) return { success: false };
+  const row = await db.select({ authorId: articles.authorId }).from(articles).where(eq(articles.id, id));
+  if (row.length === 0 || row[0].authorId !== user.id) return { success: false };
+  await ensureChenwenyiExists();
+  await db.update(articles).set({ authorId: CHENWENYI_ID, abandoned: "1" }).where(eq(articles.id, id));
+  return { success: true };
 }
 
 export async function deleteArticle(id: string) {

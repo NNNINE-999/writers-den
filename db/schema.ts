@@ -33,6 +33,7 @@ export const articles = sqliteTable("articles", {
   content: text("content").notNull(),
   copyable: text("copyable").notNull().default("0"),
   anonymous: text("anonymous").notNull().default("0"),
+  abandoned: text("abandoned").notNull().default("0"),
   authorId: text("author_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),

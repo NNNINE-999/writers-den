@@ -12,6 +12,7 @@ async function getArticles() {
       title: articles.title,
       content: articles.content,
       anonymous: articles.anonymous,
+      abandoned: articles.abandoned,
       authorId: articles.authorId,
       authorName: users.username,
       createdAt: articles.createdAt,
@@ -26,7 +27,7 @@ async function getArticles() {
 
   return rows.map((row) => ({
     ...row,
-    authorName: row.anonymous === "1" ? "匿名" : row.authorName,
+    authorName: row.anonymous === "1" ? "匿名" : row.abandoned === "1" ? `${row.authorName} · 收养` : row.authorName,
     tags: row.tagNames ? row.tagNames.split(",") : [],
   }));
 }

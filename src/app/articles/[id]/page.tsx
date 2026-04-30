@@ -7,6 +7,7 @@ import { redirect, notFound } from "next/navigation";
 import { CommentsSection } from "@/components/CommentsSection";
 import { CopyButton } from "@/components/CopyButton";
 import { DeleteArticleButton } from "@/components/DeleteArticleButton";
+import { AbandonArticleButton } from "@/components/AbandonArticleButton";
 import { MarkdownContent } from "@/components/MarkdownContent";
 
 interface Props {
@@ -21,6 +22,7 @@ async function getArticle(id: string) {
       content: articles.content,
       copyable: articles.copyable,
       anonymous: articles.anonymous,
+      abandoned: articles.abandoned,
       authorId: articles.authorId,
       authorName: users.username,
       createdAt: articles.createdAt,
@@ -94,7 +96,7 @@ export default async function ArticlePage({ params }: Props) {
               <span className="text-stone-400 italic text-xs">已编辑</span>
             </>
           )}
-          {isAuthor && (
+          {isAuthor && !article.abandoned && (
             <div className="flex gap-2 ml-auto">
               <Link
                 href={`/articles/${id}/edit`}
@@ -102,8 +104,14 @@ export default async function ArticlePage({ params }: Props) {
               >
                 编辑
               </Link>
+              <AbandonArticleButton articleId={id} />
               <DeleteArticleButton articleId={id} />
             </div>
+          )}
+          {article.abandoned === "1" && (
+            <span className="ml-auto text-xs px-2 py-1 rounded-full bg-amber-50 text-amber-600 border border-amber-200">
+              已遗弃
+            </span>
           )}
         </div>
 
