@@ -34,7 +34,7 @@ export async function Navbar() {
                 <span className="hidden sm:inline">进行创作</span>
               </Link>
               <Link
-                href={`/users/${user.username}`}
+                href={`/users/${encodeURIComponent(user.username)}`}
                 prefetch={false}
                 className="flex items-center gap-2 text-sm text-stone-600 hover:text-warm-700 transition-colors"
               >

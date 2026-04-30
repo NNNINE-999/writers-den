@@ -50,7 +50,7 @@ export async function sendCodeAction(
 export async function registerAction(_prev: AuthState, formData: FormData): Promise<AuthState> {
   const raw = {
     email: formData.get("email"),
-    username: formData.get("username"),
+    username: (formData.get("username") as string).trim(),
     password: formData.get("password"),
     confirmPassword: formData.get("confirmPassword"),
     qq: formData.get("qq") || undefined,
@@ -130,7 +130,7 @@ export async function loginAction(_prev: AuthState, formData: FormData): Promise
   const rows = await db
     .select({ id: users.id, passwordHash: users.passwordHash })
     .from(users)
-    .where(eq(users.email, email));
+    .where(eq(users.email, email.toLowerCase()));
 
   if (rows.length === 0 || !(await verifyPassword(password, rows[0].passwordHash))) {
     return { errors: { email: ["邮箱或密码错误"] } };

@@ -17,7 +17,7 @@ export default async function UserPage({ params }: Props) {
   const user = await db
     .select({ id: users.id, username: users.username, createdAt: users.createdAt })
     .from(users)
-    .where(eq(users.username, username));
+    .where(eq(users.username, decodeURIComponent(username)));
   if (user.length === 0) notFound();
 
   const rows = await db
