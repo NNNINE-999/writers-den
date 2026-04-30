@@ -40,10 +40,10 @@ export async function createComment(
 
 export async function deleteComment(articleId: string, commentId: string) {
   const user = await getCurrentUser();
-  if (!user) return;
+  if (!user) return { success: false };
   const row = await db.select({ authorId: comments.authorId }).from(comments).where(eq(comments.id, commentId));
-  if (row.length > 0 && row[0].authorId === user.id) {
-    await db.delete(comments).where(eq(comments.id, commentId));
-    revalidatePath(`/articles/${articleId}`);
-  }
+  if (row.length === 0 || row[0].authorId !== user.id) return { success: false };
+  await db.delete(comments).where(eq(comments.id, commentId));
+  revalidatePath(`/articles/${articleId}`);
+  return { success: true };
 }

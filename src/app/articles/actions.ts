@@ -95,9 +95,9 @@ export async function updateArticle(id: string, _prev: ArticleState, formData: F
 
 export async function deleteArticle(id: string) {
   const user = await getCurrentUser();
-  if (!user) return;
+  if (!user) return { success: false };
   const row = await db.select({ authorId: articles.authorId }).from(articles).where(eq(articles.id, id));
-  if (row.length > 0 && row[0].authorId === user.id) {
-    await db.delete(articles).where(eq(articles.id, id));
-  }
+  if (row.length === 0 || row[0].authorId !== user.id) return { success: false };
+  await db.delete(articles).where(eq(articles.id, id));
+  return { success: true };
 }
