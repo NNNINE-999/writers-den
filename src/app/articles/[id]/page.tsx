@@ -62,15 +62,24 @@ export default async function ArticlePage({ params }: Props) {
           {article.title}
         </h1>
         <div className="flex items-center gap-3 text-sm text-stone-400 flex-wrap">
-          <Link
-            href={`/users/${article.authorName}`}
-            className="flex items-center gap-2 text-warm-700 hover:text-warm-800 font-medium transition-colors"
-          >
-            <span className="w-6 h-6 rounded-full bg-warm-100 flex items-center justify-center text-xs font-bold text-warm-600">
-              {(article.authorName ?? "?")[0].toUpperCase()}
+          {article.anonymous === "1" ? (
+            <span className="flex items-center gap-2 text-stone-400 font-medium">
+              <span className="w-6 h-6 rounded-full bg-warm-100 flex items-center justify-center text-xs font-bold text-warm-600">
+                ?
+              </span>
+              匿名
             </span>
-            {article.anonymous === "1" ? "匿名" : article.authorName}
-          </Link>
+          ) : (
+            <Link
+              href={`/users/${article.authorName}`}
+              className="flex items-center gap-2 text-warm-700 hover:text-warm-800 font-medium transition-colors"
+            >
+              <span className="w-6 h-6 rounded-full bg-warm-100 flex items-center justify-center text-xs font-bold text-warm-600">
+                {(article.authorName ?? "?")[0].toUpperCase()}
+              </span>
+              {article.authorName}
+            </Link>
+          )}
           <span className="text-stone-300">·</span>
           <time>
             {new Date(article.createdAt).toLocaleDateString("zh-CN", {

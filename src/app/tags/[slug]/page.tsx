@@ -76,7 +76,7 @@ export default async function TagPage({ params }: Props) {
                   <div className="flex items-center gap-3 text-xs text-stone-400 flex-wrap">
                     <span className="flex items-center gap-1.5 text-warm-700 font-medium">
                       <span className="w-5 h-5 rounded-full bg-warm-100 flex items-center justify-center text-[10px] font-bold text-warm-600">
-                        {(article.authorName ?? "?")[0].toUpperCase()}
+                        {article.anonymous === "1" ? "?" : (article.authorName ?? "?")[0].toUpperCase()}
                       </span>
                       {article.authorName}
                     </span>
