@@ -61,7 +61,7 @@ export default async function TagPage({ params }: Props) {
             return (
               <article
                 key={article.id}
-                className="group bg-white/80 backdrop-blur rounded-2xl border border-warm-200 hover:border-warm-600 hover:shadow-lg transition-all duration-300"
+                className="group bg-white/95 rounded-2xl border border-warm-200 hover:border-warm-600 hover:shadow-lg transition-all duration-300"
               >
                 <Link href={`/articles/${article.id}`} className="block p-5 sm:p-6">
                   <h2 className="text-lg font-bold text-stone-800 group-hover:text-warm-700 transition-colors mb-2 line-clamp-1">

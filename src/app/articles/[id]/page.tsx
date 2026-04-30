@@ -113,7 +113,7 @@ export default async function ArticlePage({ params }: Props) {
       </header>
 
       {/* 作品内容 */}
-      <div className="bg-white/80 backdrop-blur rounded-2xl border border-warm-200 p-6 sm:p-8 mb-6 shadow-sm">
+      <div className="bg-white/95 rounded-2xl border border-warm-200 p-6 sm:p-8 mb-6 shadow-sm">
         <MarkdownContent content={article.content} />
       </div>
 

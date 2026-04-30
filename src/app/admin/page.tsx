@@ -27,7 +27,7 @@ export default async function AdminPage() {
         <p className="text-stone-400 text-sm">共 {allUsers.length} 位注册用户</p>
       </div>
 
-      <div className="bg-white/80 backdrop-blur rounded-2xl border border-warm-200 overflow-hidden shadow-sm">
+      <div className="bg-white/95 rounded-2xl border border-warm-200 overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>

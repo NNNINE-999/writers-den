@@ -57,7 +57,7 @@ export default async function HomePage() {
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-8">
       <div>
         {/* 欢迎横幅 */}
-        <div className="mb-8 bg-white/70 backdrop-blur rounded-2xl p-6 border border-warm-200 shadow-sm">
+        <div className="mb-8 bg-white/90 rounded-2xl p-6 border border-warm-200 shadow-sm">
           <h1 className="text-2xl sm:text-3xl font-bold text-warm-800 mb-2">
             欢迎回来，{user.username} &#128075;
           </h1>
@@ -85,7 +85,7 @@ export default async function HomePage() {
               return (
                 <article
                   key={article.id}
-                  className="bg-white/80 backdrop-blur rounded-2xl border border-warm-200 hover:border-warm-600 hover:shadow-lg transition-all duration-300"
+                  className="bg-white/95 rounded-2xl border border-warm-200 hover:border-warm-600 hover:shadow-lg transition-all duration-300"
                   style={{ animationDelay: `${i * 50}ms` }}
                 >
                   <Link href={`/articles/${article.id}`} className="block p-5 sm:p-6">
@@ -144,7 +144,7 @@ export default async function HomePage() {
       {/* 侧栏 */}
       <aside className="space-y-6">
         {/* 标签云 */}
-        <div className="bg-white/70 backdrop-blur rounded-2xl border border-warm-200 p-5 sticky top-24 shadow-sm">
+        <div className="bg-white/90 rounded-2xl border border-warm-200 p-5 sticky top-24 shadow-sm">
           <h3 className="font-semibold text-stone-700 mb-4 flex items-center gap-2">
             <span>&#127991;</span> 标签
           </h3>
@@ -169,7 +169,7 @@ export default async function HomePage() {
         </div>
 
         {/* 快速入口 */}
-        <div className="bg-white/70 backdrop-blur rounded-2xl border border-warm-200 p-5 shadow-sm">
+        <div className="bg-white/90 rounded-2xl border border-warm-200 p-5 shadow-sm">
           <h3 className="font-semibold text-stone-700 mb-3 text-sm">快速入口</h3>
           <div className="space-y-2">
             <Link

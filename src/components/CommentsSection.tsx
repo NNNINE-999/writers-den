@@ -62,7 +62,7 @@ export async function CommentsSection({
         {commentList.map((comment) => (
           <div
             key={comment.id}
-            className="bg-white/70 backdrop-blur rounded-xl border border-warm-200 p-4 hover:shadow-sm transition-shadow"
+            className="bg-white/90 rounded-xl border border-warm-200 p-4 hover:shadow-sm transition-shadow"
           >
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2 text-sm">

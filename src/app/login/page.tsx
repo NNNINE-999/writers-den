@@ -19,7 +19,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-[65vh] flex items-center justify-center">
       <div className="w-full max-w-md">
-        <div className="bg-white/80 backdrop-blur rounded-2xl border border-warm-200 shadow-lg p-8">
+        <div className="bg-white/95 rounded-2xl border border-warm-200 shadow-lg p-8">
           <div className="text-center mb-8">
             <span className="text-4xl block mb-3">&#128221;</span>
             <h1 className="text-2xl font-bold text-warm-800">欢迎回来</h1>

@@ -43,7 +43,7 @@ export default async function UserPage({ params }: Props) {
   return (
     <div>
       {/* 用户信息卡片 */}
-      <div className="bg-white/80 backdrop-blur rounded-2xl border border-warm-200 p-6 sm:p-8 mb-8 shadow-sm">
+      <div className="bg-white/95 rounded-2xl border border-warm-200 p-6 sm:p-8 mb-8 shadow-sm">
         <div className="flex items-center gap-4 mb-3">
           <span className="w-16 h-16 rounded-full bg-warm-100 flex items-center justify-center text-2xl font-bold text-warm-600 shadow-inner">
             {user[0].username[0].toUpperCase()}
@@ -72,7 +72,7 @@ export default async function UserPage({ params }: Props) {
             return (
               <article
                 key={article.id}
-                className="group bg-white/80 backdrop-blur rounded-2xl border border-warm-200 hover:border-warm-600 hover:shadow-lg transition-all duration-300"
+                className="group bg-white/95 rounded-2xl border border-warm-200 hover:border-warm-600 hover:shadow-lg transition-all duration-300"
               >
                 <Link href={`/articles/${article.id}`} className="block p-5 sm:p-6">
                   <h2 className="text-lg font-bold text-stone-800 group-hover:text-warm-700 transition-colors mb-2 line-clamp-1">
