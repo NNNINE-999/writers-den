@@ -96,7 +96,7 @@ export default async function ArticlePage({ params }: Props) {
               <span className="text-stone-400 italic text-xs">已编辑</span>
             </>
           )}
-          {isAuthor && !article.abandoned && (
+          {isAuthor && article.abandoned !== "1" && (
             <div className="flex gap-2 ml-auto">
               <Link
                 href={`/articles/${id}/edit`}
